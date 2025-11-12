@@ -1,0 +1,27 @@
+name: build
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+      - name: Verify Gradle
+        uses: gradle/actions/wrapper-validation@v5
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+      - name: Build with Gradle
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
+          ./gradlew build
+      - name: Upload Jar
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: TokenLogin.jar
+          path: build/libs/*.jar
