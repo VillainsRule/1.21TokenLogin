@@ -28,15 +28,6 @@ public class SessionIDLoginMod implements ModInitializer {
 		originalSession = SessionUtils.getSession();
 		currentSession = originalSession;
 		overrideSession = true;
-
-		String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).map(container -> container.getMetadata().getVersion().getFriendlyString()).orElse("1.?.?");
-		String MOD_AUTHOR = FabricLoader.getInstance().getModContainer(MOD_ID).map(c -> c.getMetadata().getAuthors().isEmpty() ? "Unknown" : c.getMetadata().getAuthors().iterator().next().getName()).orElse("Unknown");
-
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.getWindow() != null) {
-				MinecraftClient.getInstance().getWindow().setTitle("SessionID Login • v" + MOD_VERSION + " • by " + MOD_AUTHOR);
-			}
-		});
 	}
 
 }
