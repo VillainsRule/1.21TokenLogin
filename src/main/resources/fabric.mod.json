@@ -2,14 +2,14 @@
 	"schemaVersion": 1,
 	"id": "session-id-login-mod",
 	"version": "${version}",
-	"name": "Session ID Login Mod",
-	"description": "A lightweight Fabric client-side mod that adds a GUI to log in using Minecraft session IDs. Includes a status display (Valid/Invalid) and integrates cleanly into the multiplayer menu without affecting gameplay or server-side behavior.",
+	"name": "1.21 Token Login",
+	"description": "A lightweight Fabric client-side mod that adds a GUI to log in using Minecraft access tokens. Includes a status display (Valid/Invalid) and integrates cleanly into the multiplayer menu without affecting gameplay or server-side behavior.",
 	"authors": [
 		"Majanito"
 	],
 	"contact": {
 		"homepage": "None",
-		"sources": "https://github.com/Majanito/Fabric-Session-Login"
+		"sources": "https://github.com/VillainsRule/1.21TokenLogin"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/session-id-login-mod/icon.png",
@@ -24,11 +24,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.10",
-		"minecraft": "~1.21.5",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
+		"minecraft": ">=1.20.5",
+		"java": ">=21"
 	}
 }
