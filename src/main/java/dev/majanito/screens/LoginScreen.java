@@ -13,8 +13,6 @@ import net.minecraft.util.Formatting;
 
 import java.io.IOException;
 
-import static dev.majanito.utils.FormattingUtils.surroundWithObfuscated;
-
 public class LoginScreen extends Screen {
     private TextFieldWidget sessionField;
     private ButtonWidget loginButton;
@@ -24,7 +22,7 @@ public class LoginScreen extends Screen {
 
     public LoginScreen() {
         super(Text.literal(""));
-        this.currentTitle = surroundWithObfuscated(Text.literal("Input Session ID").formatted(Formatting.GOLD), 5);
+        this.currentTitle = Text.literal("Input Session ID").formatted(Formatting.GOLD);
     }
 
     @Override
@@ -55,18 +53,18 @@ public class LoginScreen extends Screen {
                     SessionUtils.setSession(SessionUtils.createSession(sessionInfo[0], sessionInfo[1], sessionInput));
 
 
-                    this.currentTitle = surroundWithObfuscated(Text.literal("Logged in as: " + sessionInfo[0]).formatted(Formatting.GREEN), 5);
+                    this.currentTitle = Text.literal("Logged in as: " + sessionInfo[0]).formatted(Formatting.GREEN);
 
 
                     restoreButton.active = true;
                 } catch (IOException | RuntimeException e) {
-                    this.currentTitle = surroundWithObfuscated(Text.literal("Invalid Session ID").formatted(Formatting.RED), 7);
+                    this.currentTitle = Text.literal("Invalid Session ID").formatted(Formatting.RED);
                 }
 
 
             } else {
 
-                this.currentTitle = surroundWithObfuscated(Text.literal("Session ID cannot be empty").formatted(Formatting.RED), 5);
+                this.currentTitle = Text.literal("Session ID cannot be empty").formatted(Formatting.RED);
             }
         }).dimensions(centerX - 100, centerY + 25, 97, 20).build();
         this.addDrawableChild(loginButton);
@@ -75,8 +73,7 @@ public class LoginScreen extends Screen {
         restoreButton = ButtonWidget.builder(Text.literal("Restore"), button -> {
             SessionUtils.restoreSession();
 
-
-            this.currentTitle = surroundWithObfuscated(Text.literal("Restored original session").formatted(Formatting.GREEN),7);
+            this.currentTitle = Text.literal("Restored original session").formatted(Formatting.GREEN);
 
             loginButton.active = true;
             restoreButton.active = false;
@@ -98,15 +95,11 @@ public class LoginScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-
         this.renderBackground(context, mouseX, mouseY, delta);
-
 
         super.render(context, mouseX, mouseY, delta);
 
-
         sessionField.render(context, mouseX, mouseY, delta);
-
 
         context.drawCenteredTextWithShadow(
                 this.textRenderer,

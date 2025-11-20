@@ -1,6 +1,5 @@
 package dev.majanito.mixin;
 
-
 import dev.majanito.screens.EditAccountScreen;
 import dev.majanito.screens.LoginScreen;
 import dev.majanito.utils.APIUtils;

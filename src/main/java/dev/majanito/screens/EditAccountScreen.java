@@ -11,9 +11,6 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import static dev.majanito.utils.FormattingUtils.surroundWithObfuscated;
-
-
 public class EditAccountScreen extends Screen {
     private TextFieldWidget nameField;
     private TextFieldWidget skinUrlField;
@@ -23,7 +20,7 @@ public class EditAccountScreen extends Screen {
 
     public EditAccountScreen() {
         super(Text.literal(""));
-        this.currentTitle = surroundWithObfuscated(Text.literal("Edit Account").formatted(Formatting.AQUA), 5);
+        this.currentTitle = Text.literal("Edit Account").formatted(Formatting.AQUA);
     }
 
     @Override
@@ -62,20 +59,20 @@ public class EditAccountScreen extends Screen {
                     currentTitle = switch (statusCode) {
                         case 200 -> {
                             SessionIDLoginMod.currentSession = SessionUtils.createSession(newName, SessionIDLoginMod.currentSession.getUuidOrNull(), SessionIDLoginMod.currentSession.getAccessToken());
-                            yield surroundWithObfuscated(Text.literal("Successfully changed name").formatted(Formatting.GREEN), 4);
+                            yield Text.literal("Successfully changed name").formatted(Formatting.GREEN);
                         }
-                        case 429 -> surroundWithObfuscated(Text.literal("Too many requests").formatted(Formatting.RED), 5);
-                        case 400 -> surroundWithObfuscated(Text.literal("Invalid name").formatted(Formatting.RED), 7);
-                        case 401 -> surroundWithObfuscated(Text.literal("Invalid token").formatted(Formatting.RED), 7);
-                        case 403 -> surroundWithObfuscated(Text.literal("Name is unavailable or Player already changed name in the last 35 days").formatted(Formatting.RED), 2);
-                        default -> surroundWithObfuscated(Text.literal("Unknown error").formatted(Formatting.RED), 2);
+                        case 429 -> Text.literal("Too many requests").formatted(Formatting.RED);
+                        case 400 -> Text.literal("Invalid name").formatted(Formatting.RED);
+                        case 401 -> Text.literal("Invalid token").formatted(Formatting.RED);
+                        case 403 -> Text.literal("Name is unavailable or Player already changed name in the last 35 days").formatted(Formatting.RED);
+                        default -> Text.literal("Unknown error").formatted(Formatting.RED);
                     };
 
                 }else{
-                    currentTitle = surroundWithObfuscated(Text.literal("Invalid name").formatted(Formatting.RED), 7);
+                    currentTitle = Text.literal("Invalid name").formatted(Formatting.RED);
                 }
             }else{
-                currentTitle = surroundWithObfuscated(Text.literal("Please input a name").formatted(Formatting.RED), 5);
+                currentTitle = Text.literal("Please input a name").formatted(Formatting.RED);
             }
         }).dimensions(centerX - 100, centerY + 25, 97, 20).build();
         this.addDrawableChild(nameButton);
@@ -85,14 +82,14 @@ public class EditAccountScreen extends Screen {
             if (!skinUrl.isEmpty()) {
                 int statusCode = APIUtils.changeSkin(skinUrl, SessionIDLoginMod.currentSession.getAccessToken());
                 currentTitle = switch (statusCode){
-                    case 200 -> surroundWithObfuscated(Text.literal("Successfully changed skin").formatted(Formatting.GREEN), 4);
-                    case 429 -> surroundWithObfuscated(Text.literal("Too many requests").formatted(Formatting.RED), 5);
-                    case 401 -> surroundWithObfuscated(Text.literal("Invalid token").formatted(Formatting.RED), 7);
-                    case -1 -> surroundWithObfuscated(Text.literal("Unknown error").formatted(Formatting.RED), 7);
-                    default  -> surroundWithObfuscated(Text.literal("Invalid Skin").formatted(Formatting.RED), 7);
+                    case 200 -> Text.literal("Successfully changed skin").formatted(Formatting.GREEN);
+                    case 429 -> Text.literal("Too many requests").formatted(Formatting.RED);
+                    case 401 -> Text.literal("Invalid token").formatted(Formatting.RED);
+                    case -1 -> Text.literal("Unknown error").formatted(Formatting.RED);
+                    default  -> Text.literal("Invalid Skin").formatted(Formatting.RED);
                 };
             }else{
-                currentTitle = surroundWithObfuscated(Text.literal("Please input an URL").formatted(Formatting.RED), 5);
+                currentTitle = Text.literal("Please input an URL").formatted(Formatting.RED);
             }
         }).dimensions(centerX + 3, centerY + 25, 97, 20).build();
         this.addDrawableChild(skinButton);
@@ -107,8 +104,7 @@ public class EditAccountScreen extends Screen {
             nameButton.active = false;
             skinButton.active = false;
 
-            currentTitle = surroundWithObfuscated(Text.literal("Cannot modify original session").formatted(Formatting.YELLOW), 4);
-
+            currentTitle = Text.literal("To enable this, you MUST first sign in with a token!").formatted(Formatting.YELLOW);
         }
     }
 
