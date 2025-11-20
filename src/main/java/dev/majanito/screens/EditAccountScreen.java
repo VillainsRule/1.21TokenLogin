@@ -110,13 +110,12 @@ public class EditAccountScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
 
-        context.drawTextWithShadow(this.textRenderer, Text.literal("Username:"), this.width / 2 - 100, this.height / 2 - 52, 0xA0A0A0);
+        context.drawTextWithShadow(this.textRenderer, Text.literal("Username:"), this.width / 2 - 100, this.height / 2 - 52, 0xA0A0A0FF);
         nameField.render(context, mouseX, mouseY, delta);
 
-        context.drawTextWithShadow(this.textRenderer, Text.literal("Skin URL:"), this.width / 2 - 100, this.height / 2 - 10, 0xA0A0A0);
+        context.drawTextWithShadow(this.textRenderer, Text.literal("Skin URL:"), this.width / 2 - 100, this.height / 2 - 10, 0xA0A0A0FF);
         skinUrlField.render(context, mouseX, mouseY, delta);
 
         context.drawCenteredTextWithShadow(
@@ -124,7 +123,7 @@ public class EditAccountScreen extends Screen {
                 this.currentTitle,
                 this.width / 2,
                 this.height / 2 - 75,
-                0xFFFFFF
+                0xFFFFFFFF
         );
     }
 

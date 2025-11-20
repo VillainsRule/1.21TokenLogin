@@ -95,8 +95,6 @@ public class LoginScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
-
         super.render(context, mouseX, mouseY, delta);
 
         sessionField.render(context, mouseX, mouseY, delta);
@@ -106,7 +104,7 @@ public class LoginScreen extends Screen {
                 this.currentTitle,
                 this.width / 2,
                 this.height / 2 - 30,
-                0xFFFFFF
+                0xFFFFFFFF
         );
     }
 
