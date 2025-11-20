@@ -3,8 +3,6 @@ package dev.majanito;
 import dev.majanito.utils.SessionUtils;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.session.Session;
 import org.slf4j.Logger;
