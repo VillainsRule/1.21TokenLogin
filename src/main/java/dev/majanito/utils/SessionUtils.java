@@ -32,8 +32,7 @@ public class SessionUtils {
                 UUID.fromString(uuidString),
                 ssid,
                 Optional.empty(),
-                Optional.empty(),
-                Session.AccountType.MOJANG
+                Optional.empty()
         );
     }
 
@@ -44,8 +43,7 @@ public class SessionUtils {
                 uuid,
                 ssid,
                 Optional.empty(),
-                Optional.empty(),
-                Session.AccountType.MOJANG
+                Optional.empty()
         );
     }
 

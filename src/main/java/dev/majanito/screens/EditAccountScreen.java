@@ -3,11 +3,14 @@ package dev.majanito.screens;
 import dev.majanito.SessionIDLoginMod;
 import dev.majanito.utils.APIUtils;
 import dev.majanito.utils.SessionUtils;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.input.CharInput;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -128,27 +131,27 @@ public class EditAccountScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return nameField.keyPressed(keyCode, scanCode, modifiers) ||
-                skinUrlField.keyPressed(keyCode, scanCode, modifiers) ||
-                super.keyPressed(keyCode, scanCode, modifiers);
+    public boolean keyPressed(KeyInput keyInput) {
+        return nameField.keyPressed(keyInput) ||
+                skinUrlField.keyPressed(keyInput) ||
+                super.keyPressed(keyInput);
     }
 
     @Override
-    public boolean charTyped(char chr, int modifiers) {
-        return nameField.charTyped(chr, modifiers) ||
-                skinUrlField.charTyped(chr, modifiers) ||
-                super.charTyped(chr, modifiers);
+    public boolean charTyped(CharInput charInput) {
+        return nameField.charTyped(charInput) ||
+                skinUrlField.charTyped(charInput) ||
+                super.charTyped(charInput);
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        boolean nameFocused = nameField.mouseClicked(mouseX, mouseY, button);
-        boolean skinFocused = skinUrlField.mouseClicked(mouseX, mouseY, button);
+    public boolean mouseClicked(Click click, boolean doubled) {
+        boolean nameFocused = nameField.mouseClicked(click, doubled);
+        boolean skinFocused = skinUrlField.mouseClicked(click, doubled);
 
         nameField.setFocused(nameFocused);
         skinUrlField.setFocused(skinFocused);
 
-        return nameFocused || skinFocused || super.mouseClicked(mouseX, mouseY, button);
+        return nameFocused || skinFocused || super.mouseClicked(click, doubled);
     }
 }

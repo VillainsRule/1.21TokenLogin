@@ -8,6 +8,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.input.CharInput;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -109,18 +111,14 @@ public class LoginScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (sessionField.keyPressed(keyCode, scanCode, modifiers) || sessionField.isActive()) {
-            return true;
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+    public boolean keyPressed(KeyInput keyInput) {
+        if (sessionField.keyPressed(keyInput) || sessionField.isActive()) return true;
+        return super.keyPressed(keyInput);
     }
 
     @Override
-    public boolean charTyped(char chr, int modifiers) {
-        if (sessionField.charTyped(chr, modifiers)) {
-            return true;
-        }
-        return super.charTyped(chr, modifiers);
+    public boolean charTyped(CharInput charInput) {
+        if (sessionField.charTyped(charInput)) return true;
+        return super.charTyped(charInput);
     }
 }
