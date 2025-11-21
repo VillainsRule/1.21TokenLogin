@@ -10,15 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-
     @Inject(method = "getSession", at = @At("HEAD"), cancellable = true)
     private void onGetSession(CallbackInfoReturnable<Session> cir) {
-
-        if (!SessionIDLoginMod.overrideSession) {
+        if (!SessionIDLoginMod.overrideSession)
             return;
-        }
-
         cir.setReturnValue(SessionIDLoginMod.currentSession);
-
     }
 }

@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-
 public class APIUtils {
-
     public static String[] getProfileInfo(String token) throws IOException {
         try {
             CloseableHttpClient client = HttpClients.createDefault();
@@ -28,23 +26,20 @@ public class APIUtils {
             JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
             String IGN = jsonObject.get("name").getAsString();
             String UUID = jsonObject.get("id").getAsString();
-            return new String[]{IGN, UUID};
-        }catch(Exception e){
+            return new String[] {IGN, UUID};
+        } catch (Exception e) {
             throw new RuntimeException();
         }
     }
-    public static Boolean validateSession(String token){
+
+    public static Boolean validateSession(String token) {
         try {
             String[] profileInfo = getProfileInfo(token);
             String ign = profileInfo[0];
             String uuidString = profileInfo[1];
 
             if (uuidString.length() == 32) {
-                uuidString = uuidString.substring(0, 8) + "-" +
-                        uuidString.substring(8, 12) + "-" +
-                        uuidString.substring(12, 16) + "-" +
-                        uuidString.substring(16, 20) + "-" +
-                        uuidString.substring(20);
+                uuidString = uuidString.substring(0, 8) + "-" + uuidString.substring(8, 12) + "-" + uuidString.substring(12, 16) + "-" + uuidString.substring(16, 20) + "-" + uuidString.substring(20);
             }
 
             UUID uuid = UUID.fromString(uuidString);
@@ -55,7 +50,7 @@ public class APIUtils {
         }
     }
 
-    public static int changeSkin(String url,String token){
+    public static int changeSkin(String url, String token) {
         try {
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPost request = new HttpPost("https://api.minecraftservices.com/minecraft/profile/skins");
@@ -65,19 +60,19 @@ public class APIUtils {
             request.setEntity(new StringEntity(jsonString));
             CloseableHttpResponse response = client.execute(request);
             return response.getStatusLine().getStatusCode();
-        }catch (Exception e){
+        } catch (Exception e) {
             return -1;
         }
     }
 
-    public static int changeName(String newName,String token){
+    public static int changeName(String newName, String token) {
         try {
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPut request = new HttpPut("https://api.minecraftservices.com/minecraft/profile/name/" + newName);
             request.setHeader("Authorization", "Bearer " + token);
             CloseableHttpResponse response = client.execute(request);
             return response.getStatusLine().getStatusCode();
-        }catch (Exception e){
+        } catch (Exception e) {
             return -1;
         }
     }

@@ -31,33 +31,19 @@ public class EditAccountScreen extends Screen {
         int centerX = this.width / 2;
         int centerY = this.height / 2;
 
-        nameField = new TextFieldWidget(
-                this.textRenderer,
-                centerX - 100,
-                centerY - 40,
-                200,
-                20,
-                Text.literal("New Username")
-        );
+        nameField = new TextFieldWidget(this.textRenderer, centerX - 100, centerY - 40, 200, 20, Text.literal("New Username"));
         nameField.setMaxLength(16);
         nameField.setFocused(true);
         this.addSelectableChild(nameField);
 
-        skinUrlField = new TextFieldWidget(
-                this.textRenderer,
-                centerX - 100,
-                centerY,
-                200,
-                20,
-                Text.literal("Skin URL")
-        );
+        skinUrlField = new TextFieldWidget(this.textRenderer, centerX - 100, centerY, 200, 20, Text.literal("Skin URL"));
         skinUrlField.setMaxLength(2048);
         this.addSelectableChild(skinUrlField);
 
         nameButton = ButtonWidget.builder(Text.literal("Change Name"), button -> {
             String newName = nameField.getText().trim();
             if (!newName.isEmpty()) {
-                if(newName.matches("^[a-zA-Z0-9_]{3,16}$")) {
+                if (newName.matches("^[a-zA-Z0-9_]{3,16}$")) {
                     int statusCode = APIUtils.changeName(newName, SessionIDLoginMod.currentSession.getAccessToken());
                     currentTitle = switch (statusCode) {
                         case 200 -> {
@@ -71,12 +57,10 @@ public class EditAccountScreen extends Screen {
                         default -> Text.literal("Unknown error").formatted(Formatting.RED);
                     };
 
-                }else{
+                } else
                     currentTitle = Text.literal("Invalid name").formatted(Formatting.RED);
-                }
-            }else{
+            } else
                 currentTitle = Text.literal("Please input a name").formatted(Formatting.RED);
-            }
         }).dimensions(centerX - 100, centerY + 25, 97, 20).build();
         this.addDrawableChild(nameButton);
 
@@ -84,16 +68,15 @@ public class EditAccountScreen extends Screen {
             String skinUrl = skinUrlField.getText().trim();
             if (!skinUrl.isEmpty()) {
                 int statusCode = APIUtils.changeSkin(skinUrl, SessionIDLoginMod.currentSession.getAccessToken());
-                currentTitle = switch (statusCode){
+                currentTitle = switch (statusCode) {
                     case 200 -> Text.literal("Successfully changed skin").formatted(Formatting.GREEN);
                     case 429 -> Text.literal("Too many requests").formatted(Formatting.RED);
                     case 401 -> Text.literal("Invalid token").formatted(Formatting.RED);
                     case -1 -> Text.literal("Unknown error").formatted(Formatting.RED);
-                    default  -> Text.literal("Invalid Skin").formatted(Formatting.RED);
+                    default -> Text.literal("Invalid Skin").formatted(Formatting.RED);
                 };
-            }else{
+            } else
                 currentTitle = Text.literal("Please input an URL").formatted(Formatting.RED);
-            }
         }).dimensions(centerX + 3, centerY + 25, 97, 20).build();
         this.addDrawableChild(skinButton);
 
@@ -101,9 +84,10 @@ public class EditAccountScreen extends Screen {
             assert this.client != null;
             this.client.setScreen(new net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen(new TitleScreen()));
         }).dimensions(centerX - 100, centerY + 50, 200, 20).build();
+
         this.addDrawableChild(backButton);
 
-        if (SessionIDLoginMod.originalSession.equals(SessionIDLoginMod.currentSession)){
+        if (SessionIDLoginMod.originalSession.equals(SessionIDLoginMod.currentSession)) {
             nameButton.active = false;
             skinButton.active = false;
 
@@ -121,27 +105,17 @@ public class EditAccountScreen extends Screen {
         context.drawTextWithShadow(this.textRenderer, Text.literal("Skin URL:"), this.width / 2 - 100, this.height / 2 - 10, 0xA0A0A0FF);
         skinUrlField.render(context, mouseX, mouseY, delta);
 
-        context.drawCenteredTextWithShadow(
-                this.textRenderer,
-                this.currentTitle,
-                this.width / 2,
-                this.height / 2 - 75,
-                0xFFFFFFFF
-        );
+        context.drawCenteredTextWithShadow(this.textRenderer, this.currentTitle, this.width / 2, this.height / 2 - 75, 0xFFFFFFFF);
     }
 
     @Override
     public boolean keyPressed(KeyInput keyInput) {
-        return nameField.keyPressed(keyInput) ||
-                skinUrlField.keyPressed(keyInput) ||
-                super.keyPressed(keyInput);
+        return nameField.keyPressed(keyInput) || skinUrlField.keyPressed(keyInput) || super.keyPressed(keyInput);
     }
 
     @Override
     public boolean charTyped(CharInput charInput) {
-        return nameField.charTyped(charInput) ||
-                skinUrlField.charTyped(charInput) ||
-                super.charTyped(charInput);
+        return nameField.charTyped(charInput) || skinUrlField.charTyped(charInput) || super.charTyped(charInput);
     }
 
     @Override
